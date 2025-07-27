@@ -232,10 +232,10 @@ export const Stories = () => {
                                 </div>
                                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                     <Clock className="w-4 h-4" />
-                                    <span>Will disappear in 24 hours</span>
+                                    <span>Story will disappear in 24 hours</span>
                                 </div>
-                                <Button onClick={handleCreateStory} className="w-full">
-                                    Create Story
+                                <Button onClick={handleCreateStory} className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90">
+                                    Share Your Story
                                 </Button>
                             </div>
                         </DialogContent>
@@ -369,11 +369,11 @@ export const Stories = () => {
                                         <AvatarImage src={highlight.userAvatar} />
                                         <AvatarFallback>{highlight.userName[0]}</AvatarFallback>
                                     </Avatar>
-                                    <p className="text-sm font-medium">{highlight.userName}</p>
+                                    <span className="text-sm font-medium">{story.userName}</span>
                                 </div>
                                 <h4 className="font-semibold text-sm">{highlight.title}</h4>
                                 <p className="text-xs text-muted-foreground mt-1">
-                                    {highlight.stories.length} stories • {new Date(highlight.createdAt).toLocaleDateString()}
+                                    <span>Downtown District</span>
                                 </p>
                             </CardContent>
                         </Card>

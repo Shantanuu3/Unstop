@@ -441,12 +441,12 @@ export const EventPlanning = () => {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <Label>Start Date & Time *</Label>
+                                    <Label>Start Date *</Label>
                                     <Popover>
                                         <PopoverTrigger asChild>
                                             <Button variant="outline" className="w-full justify-start text-left font-normal">
                                                 <CalendarIcon className="mr-2 h-4 w-4" />
-                                                {eventStartDate ? format(eventStartDate, "PPP") : "Pick a date"}
+                                                {eventStartDate ? format(eventStartDate, "PPP") : "Select start date"}
                                             </Button>
                                         </PopoverTrigger>
                                         <PopoverContent className="w-auto p-0">
@@ -454,18 +454,19 @@ export const EventPlanning = () => {
                                                 mode="single"
                                                 selected={eventStartDate}
                                                 onSelect={setEventStartDate}
+                                                disabled={(date) => date < new Date()}
                                                 initialFocus
                                             />
                                         </PopoverContent>
                                     </Popover>
                                 </div>
                                 <div>
-                                    <Label>End Date & Time *</Label>
+                                    <Label>End Date *</Label>
                                     <Popover>
                                         <PopoverTrigger asChild>
                                             <Button variant="outline" className="w-full justify-start text-left font-normal">
                                                 <CalendarIcon className="mr-2 h-4 w-4" />
-                                                {eventEndDate ? format(eventEndDate, "PPP") : "Pick a date"}
+                                                {eventEndDate ? format(eventEndDate, "PPP") : "Select end date"}
                                             </Button>
                                         </PopoverTrigger>
                                         <PopoverContent className="w-auto p-0">
@@ -473,6 +474,7 @@ export const EventPlanning = () => {
                                                 mode="single"
                                                 selected={eventEndDate}
                                                 onSelect={setEventEndDate}
+                                                disabled={(date) => date < (eventStartDate || new Date())}
                                                 initialFocus
                                             />
                                         </PopoverContent>

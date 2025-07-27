@@ -7,48 +7,262 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
-  __InternalSupabase: {
-    PostgrestVersion: "12.2.12 (cd3cf9e)"
-  }
   public: {
     Tables: {
-      bookings: {
+      users: {
         Row: {
-          booking_date: string | null
-          created_at: string | null
-          customer_id: string
-          duration: number | null
           id: string
-          service_id: string
-          special_instructions: string | null
-          start_time: string | null
-          status: string | null
+          email: string
+          name: string
+          address: string
+          phone: string | null
+          bio: string | null
+          profile_photo_url: string | null
+          is_verified: boolean | null
+          is_business: boolean | null
+          created_at: string | null
           updated_at: string | null
         }
         Insert: {
-          booking_date?: string | null
-          created_at?: string | null
-          customer_id: string
-          duration?: number | null
           id?: string
-          service_id: string
-          special_instructions?: string | null
-          start_time?: string | null
-          status?: string | null
+          email: string
+          name: string
+          address: string
+          phone?: string | null
+          bio?: string | null
+          profile_photo_url?: string | null
+          is_verified?: boolean | null
+          is_business?: boolean | null
+          created_at?: string | null
           updated_at?: string | null
         }
         Update: {
-          booking_date?: string | null
+          id?: string
+          email?: string
+          name?: string
+          address?: string
+          phone?: string | null
+          bio?: string | null
+          profile_photo_url?: string | null
+          is_verified?: boolean | null
+          is_business?: boolean | null
           created_at?: string | null
-          customer_id?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      posts: {
+        Row: {
+          id: string
+          user_id: string
+          content: string
+          photo_url: string | null
+          category: string | null
+          like_count: number | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          content: string
+          photo_url?: string | null
+          category?: string | null
+          like_count?: number | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          content?: string
+          photo_url?: string | null
+          category?: string | null
+          like_count?: number | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "posts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      comments: {
+        Row: {
+          id: string
+          post_id: string
+          user_id: string
+          content: string
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          post_id: string
+          user_id: string
+          content: string
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          post_id?: string
+          user_id?: string
+          content?: string
+          created_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      marketplace_items: {
+        Row: {
+          id: string
+          seller_id: string
+          title: string
+          description: string | null
+          price: number | null
+          photo_url: string | null
+          category: string | null
+          condition: string | null
+          status: string | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          seller_id: string
+          title: string
+          description?: string | null
+          price?: number | null
+          photo_url?: string | null
+          category?: string | null
+          condition?: string | null
+          status?: string | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          seller_id?: string
+          title?: string
+          description?: string | null
+          price?: number | null
+          photo_url?: string | null
+          category?: string | null
+          condition?: string | null
+          status?: string | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "marketplace_items_seller_id_fkey"
+            columns: ["seller_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      services: {
+        Row: {
+          id: string
+          provider_id: string
+          name: string
+          description: string | null
+          hourly_rate: number | null
+          category: string | null
+          availability: Json | null
+          photo_url: string | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          provider_id: string
+          name: string
+          description?: string | null
+          hourly_rate?: number | null
+          category?: string | null
+          availability?: Json | null
+          photo_url?: string | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          provider_id?: string
+          name?: string
+          description?: string | null
+          hourly_rate?: number | null
+          category?: string | null
+          availability?: Json | null
+          photo_url?: string | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "services_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      bookings: {
+        Row: {
+          id: string
+          service_id: string
+          customer_id: string
+          booking_date: string | null
+          start_time: string | null
+          duration: number | null
+          special_instructions: string | null
+          status: string | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          service_id: string
+          customer_id: string
+          booking_date?: string | null
+          start_time?: string | null
           duration?: number | null
+          special_instructions?: string | null
+          status?: string | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
           id?: string
           service_id?: string
-          special_instructions?: string | null
+          customer_id?: string
+          booking_date?: string | null
           start_time?: string | null
+          duration?: number | null
+          special_instructions?: string | null
           status?: string | null
+          created_at?: string | null
           updated_at?: string | null
         }
         Relationships: [
@@ -59,52 +273,44 @@ export type Database = {
             referencedRelation: "services"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "bookings_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
         ]
       }
-      business_profiles: {
+      messages: {
         Row: {
-          business_name: string
-          category: string | null
-          created_at: string | null
-          description: string | null
-          hours: string | null
           id: string
-          logo_url: string | null
-          phone: string | null
-          updated_at: string | null
-          user_id: string
-          website: string | null
+          sender_id: string
+          recipient_id: string
+          item_id: string | null
+          content: string
+          created_at: string | null
         }
         Insert: {
-          business_name: string
-          category?: string | null
-          created_at?: string | null
-          description?: string | null
-          hours?: string | null
           id?: string
-          logo_url?: string | null
-          phone?: string | null
-          updated_at?: string | null
-          user_id: string
-          website?: string | null
+          sender_id: string
+          recipient_id: string
+          item_id?: string | null
+          content: string
+          created_at?: string | null
         }
         Update: {
-          business_name?: string
-          category?: string | null
-          created_at?: string | null
-          description?: string | null
-          hours?: string | null
           id?: string
-          logo_url?: string | null
-          phone?: string | null
-          updated_at?: string | null
-          user_id?: string
-          website?: string | null
+          sender_id?: string
+          recipient_id?: string
+          item_id?: string | null
+          content?: string
+          created_at?: string | null
         }
         Relationships: []
       }
-      comments: {
-        Row: {
+            foreignKeyName: "messages_sender_id_fkey"
+            columns: ["sender_id"]
           content: string
           created_at: string | null
           id: string
@@ -174,48 +380,82 @@ export type Database = {
           status?: string | null
           title?: string
           updated_at?: string | null
-        }
-        Relationships: []
-      }
-      messages: {
-        Row: {
-          content: string
-          created_at: string | null
-          id: string
-          item_id: string | null
-          recipient_id: string
-          sender_id: string
-        }
-        Insert: {
-          content: string
-          created_at?: string | null
-          id?: string
-          item_id?: string | null
-          recipient_id: string
-          sender_id: string
-        }
-        Update: {
-          content?: string
-          created_at?: string | null
-          id?: string
-          item_id?: string | null
-          recipient_id?: string
-          sender_id?: string
-        }
-        Relationships: [
+          },
+          {
+            foreignKeyName: "messages_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "messages_item_id_fkey"
             columns: ["item_id"]
             isOneToOne: false
             referencedRelation: "marketplace_items"
             referencedColumns: ["id"]
-          },
+        }
+        Relationships: []
+      }
+      business_profiles: {
+        Row: {
+          id: string
+          user_id: string
+          business_name: string
+          description: string | null
+          category: string | null
+          phone: string | null
+          website: string | null
+          hours: string | null
+          logo_url: string | null
+          created_at: string | null
+          id: string
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          business_name: string
+          description?: string | null
+          category?: string | null
+          phone?: string | null
+          website?: string | null
+          hours?: string | null
+          logo_url?: string | null
+          created_at?: string | null
+          id?: string
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          business_name?: string
+          description?: string | null
+          category?: string | null
+          phone?: string | null
+          website?: string | null
+          hours?: string | null
+          logo_url?: string | null
+          created_at?: string | null
+          id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "business_profiles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
         ]
       }
-      posts: {
+      poll_votes: {
         Row: {
-          category: string | null
-          content: string
+          id: string
+          poll_id: string
+          user_id: string
+          option_ids: string[]
           created_at: string | null
           id: string
           like_count: number | null
@@ -291,16 +531,46 @@ export type Database = {
         Row: {
           availability: Json | null
           category: string | null
-          created_at: string | null
-          description: string | null
-          hourly_rate: number | null
-          id: string
-          name: string
-          photo_url: string | null
-          provider_id: string
-          updated_at: string | null
         }
         Insert: {
+          id?: string
+          poll_id: string
+          user_id: string
+          option_ids: string[]
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          poll_id?: string
+          user_id?: string
+          option_ids?: string[]
+          created_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "poll_votes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
+}
           availability?: Json | null
           category?: string | null
           created_at?: string | null

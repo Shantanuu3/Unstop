@@ -325,7 +325,7 @@ export const LiveStreaming = () => {
                                 <Label htmlFor="private-stream">Private stream (invite only)</Label>
                             </div>
                             <Button onClick={handleStartStream} className="w-full">
-                                Start Broadcasting
+                                Go Live Now
                             </Button>
                         </div>
                     </DialogContent>

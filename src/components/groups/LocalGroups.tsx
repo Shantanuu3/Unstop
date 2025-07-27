@@ -437,7 +437,7 @@ export const LocalGroups = () => {
                                 </div>
                             </div>
                             <Button onClick={handleCreateGroup} className="w-full">
-                                Create Group
+                                Start Community
                             </Button>
                         </div>
                     </DialogContent>

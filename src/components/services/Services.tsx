@@ -304,7 +304,7 @@ export const Services = () => {
               </div>
               
               <Button onClick={handleCreateService} className="w-full">
-                Create Service
+                Offer Service
               </Button>
             </div>
           </DialogContent>

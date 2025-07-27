@@ -102,7 +102,7 @@ export const AuthModal = ({ isOpen, onClose, onLogin, onRegister }: AuthModalPro
                 </div>
                 
                 <Button type="submit" className="w-full">
-                  Sign In
+                  Welcome Back
                 </Button>
               </form>
             </TabsContent>
@@ -203,7 +203,7 @@ export const AuthModal = ({ isOpen, onClose, onLogin, onRegister }: AuthModalPro
                 </div>
                 
                 <Button type="submit" className="w-full">
-                  Create Account
+                  Join LocalHub
                 </Button>
               </form>
             </TabsContent>

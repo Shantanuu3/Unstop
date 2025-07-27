@@ -207,7 +207,7 @@ export const SocialFeed = () => {
             <div className="flex items-center space-x-4">
               <Button variant="ghost" size="sm">
                 <Camera className="w-4 h-4 mr-2" />
-                Photo
+                Add Photo
               </Button>
               
               <DropdownMenu>
@@ -237,7 +237,7 @@ export const SocialFeed = () => {
                 {500 - newPost.length}
               </span>
               <Button onClick={handleCreatePost} disabled={!newPost.trim()}>
-                Post
+                Share Post
               </Button>
             </div>
           </div>

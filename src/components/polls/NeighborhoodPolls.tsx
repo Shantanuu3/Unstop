@@ -26,6 +26,7 @@ import {
     Settings
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface PollOption {
     id: string;
@@ -80,6 +81,25 @@ export const NeighborhoodPolls = () => {
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
     const [commentText, setCommentText] = useState("");
     const { toast } = useToast();
+
+    // Check if user has already voted on a poll
+    const checkUserVote = async (pollId: string) => {
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) return false;
+
+            const { data, error } = await supabase
+                .from('poll_votes')
+                .select('*')
+                .eq('poll_id', pollId)
+                .eq('user_id', user.id)
+                .single();
+
+            return !error && data;
+        } catch (error) {
+            return false;
+        }
+    };
 
     // Mock data
     useEffect(() => {
@@ -223,6 +243,25 @@ export const NeighborhoodPolls = () => {
     };
 
     const handleVote = () => {
+        if (!selectedPoll) return;
+
+        // Check if user has already voted
+        checkUserVote(selectedPoll.id).then(hasVoted => {
+            if (hasVoted) {
+                toast({
+                    title: "Already voted",
+                    description: "You have already voted on this poll",
+                    variant: "destructive"
+                });
+                return;
+            }
+
+            // Proceed with voting
+            submitVote();
+        });
+    };
+
+    const submitVote = async () => {
         if (selectedOptions.length === 0) {
             toast({
                 title: "Error",
@@ -233,12 +272,28 @@ export const NeighborhoodPolls = () => {
         }
 
         if (selectedPoll) {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user) {
+                    // Record the vote in the database
+                    await supabase
+                        .from('poll_votes')
+                        .insert({
+                            poll_id: selectedPoll.id,
+                            user_id: user.id,
+                            option_ids: selectedOptions
+                        });
+                }
+            } catch (error) {
+                console.error('Error recording vote:', error);
+            }
+
             const updatedPoll = { ...selectedPoll };
             selectedOptions.forEach(optionId => {
                 const option = updatedPoll.options.find(opt => opt.id === optionId);
                 if (option) {
                     option.votes += 1;
-                    if (!isAnonymous) {
+                    if (!selectedPoll.isAnonymous) {
                         option.voters.push("currentUser");
                     }
                 }
@@ -257,7 +312,7 @@ export const NeighborhoodPolls = () => {
 
             toast({
                 title: "Vote recorded!",
-                description: "Your vote has been counted",
+                description: "Thank you for participating in community decision-making!",
             });
         }
     };

@@ -304,7 +304,7 @@ export const Marketplace = () => {
               </Button>
               
               <Button onClick={handleCreateItem} className="w-full">
-                List Item
+                List for Sale
               </Button>
             </div>
           </DialogContent>

@@ -370,6 +370,7 @@ export const Messages = () => {
                 />
                 <Button onClick={handleSendMessage} disabled={!newMessage.trim()}>
                   <Send className="w-4 h-4" />
+                  <span className="sr-only">Send message</span>
                 </Button>
               </div>
             </div>

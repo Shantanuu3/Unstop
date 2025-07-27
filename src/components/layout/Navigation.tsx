@@ -164,7 +164,7 @@ export const Navigation = ({ currentPage, onPageChange, isBusiness, onToggleBusi
               <div className="flex items-center space-x-2 px-2 py-1">
                 <Globe className="w-4 h-4 text-muted-foreground" />
                 <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                  Social Features
+                  Community Features
                 </span>
               </div>
               {socialFeatures.map((item) => {
@@ -198,7 +198,7 @@ export const Navigation = ({ currentPage, onPageChange, isBusiness, onToggleBusi
               <div className="flex items-center space-x-2 px-2 py-1">
                 <TrendingUp className="w-4 h-4 text-muted-foreground" />
                 <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                  Commerce
+                  Local Commerce
                 </span>
               </div>
               {commerceFeatures.map((item) => {
@@ -232,7 +232,7 @@ export const Navigation = ({ currentPage, onPageChange, isBusiness, onToggleBusi
               <div className="flex items-center space-x-2 px-2 py-1">
                 <Zap className="w-4 h-4 text-muted-foreground" />
                 <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                  Communication
+                  Connect
                 </span>
               </div>
               <Button
