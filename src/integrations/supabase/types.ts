@@ -14,7 +14,318 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          booking_date: string | null
+          created_at: string | null
+          customer_id: string
+          duration: number | null
+          id: string
+          service_id: string
+          special_instructions: string | null
+          start_time: string | null
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          booking_date?: string | null
+          created_at?: string | null
+          customer_id: string
+          duration?: number | null
+          id?: string
+          service_id: string
+          special_instructions?: string | null
+          start_time?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          booking_date?: string | null
+          created_at?: string | null
+          customer_id?: string
+          duration?: number | null
+          id?: string
+          service_id?: string
+          special_instructions?: string | null
+          start_time?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      business_profiles: {
+        Row: {
+          business_name: string
+          category: string | null
+          created_at: string | null
+          description: string | null
+          hours: string | null
+          id: string
+          logo_url: string | null
+          phone: string | null
+          updated_at: string | null
+          user_id: string
+          website: string | null
+        }
+        Insert: {
+          business_name: string
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          hours?: string | null
+          id?: string
+          logo_url?: string | null
+          phone?: string | null
+          updated_at?: string | null
+          user_id: string
+          website?: string | null
+        }
+        Update: {
+          business_name?: string
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          hours?: string | null
+          id?: string
+          logo_url?: string | null
+          phone?: string | null
+          updated_at?: string | null
+          user_id?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
+      comments: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      marketplace_items: {
+        Row: {
+          category: string | null
+          condition: string | null
+          created_at: string | null
+          description: string | null
+          id: string
+          photo_url: string | null
+          price: number | null
+          seller_id: string
+          status: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category?: string | null
+          condition?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          photo_url?: string | null
+          price?: number | null
+          seller_id: string
+          status?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string | null
+          condition?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          photo_url?: string | null
+          price?: number | null
+          seller_id?: string
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          item_id: string | null
+          recipient_id: string
+          sender_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          item_id?: string | null
+          recipient_id: string
+          sender_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          item_id?: string | null
+          recipient_id?: string
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "marketplace_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      posts: {
+        Row: {
+          category: string | null
+          content: string
+          created_at: string | null
+          id: string
+          like_count: number | null
+          photo_url: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          category?: string | null
+          content: string
+          created_at?: string | null
+          id?: string
+          like_count?: number | null
+          photo_url?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          category?: string | null
+          content?: string
+          created_at?: string | null
+          id?: string
+          like_count?: number | null
+          photo_url?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          address: string
+          bio: string | null
+          created_at: string | null
+          id: string
+          is_business: boolean | null
+          is_verified: boolean | null
+          name: string
+          phone: string | null
+          profile_photo_url: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          address: string
+          bio?: string | null
+          created_at?: string | null
+          id?: string
+          is_business?: boolean | null
+          is_verified?: boolean | null
+          name: string
+          phone?: string | null
+          profile_photo_url?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          address?: string
+          bio?: string | null
+          created_at?: string | null
+          id?: string
+          is_business?: boolean | null
+          is_verified?: boolean | null
+          name?: string
+          phone?: string | null
+          profile_photo_url?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          availability: Json | null
+          category: string | null
+          created_at: string | null
+          description: string | null
+          hourly_rate: number | null
+          id: string
+          name: string
+          photo_url: string | null
+          provider_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          availability?: Json | null
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          hourly_rate?: number | null
+          id?: string
+          name: string
+          photo_url?: string | null
+          provider_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          availability?: Json | null
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          hourly_rate?: number | null
+          id?: string
+          name?: string
+          photo_url?: string | null
+          provider_id?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
