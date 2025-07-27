@@ -29,7 +29,6 @@ import {
     Heart,
     Globe,
     Lock,
-    Public
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -509,7 +508,7 @@ export const LocalGroups = () => {
                                     {group.isPrivate ? (
                                         <Lock className="w-4 h-4 text-muted-foreground" />
                                     ) : (
-                                        <Public className="w-4 h-4 text-muted-foreground" />
+                                        <Globe className="w-4 h-4 text-muted-foreground" />
                                     )}
                                 </div>
                             </div>
