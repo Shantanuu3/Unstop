@@ -6,6 +6,11 @@ import { Marketplace } from "@/components/marketplace/Marketplace";
 import { Services } from "@/components/services/Services";
 import { Messages } from "@/components/messages/Messages";
 import { Profile } from "@/components/profile/Profile";
+import { Stories } from "@/components/stories/Stories";
+import { LiveStreaming } from "@/components/live/LiveStreaming";
+import { NeighborhoodPolls } from "@/components/polls/NeighborhoodPolls";
+import { EventPlanning } from "@/components/events/EventPlanning";
+import { LocalGroups } from "@/components/groups/LocalGroups";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
@@ -39,8 +44,8 @@ const Index = () => {
     setIsBusiness(!isBusiness);
     toast({
       title: isBusiness ? "Switched to Personal" : "Switched to Business",
-      description: isBusiness 
-        ? "You're now in personal mode" 
+      description: isBusiness
+        ? "You're now in personal mode"
         : "You're now in business mode with enhanced features",
     });
   };
@@ -49,6 +54,16 @@ const Index = () => {
     switch (currentPage) {
       case "feed":
         return <SocialFeed />;
+      case "stories":
+        return <Stories />;
+      case "live":
+        return <LiveStreaming />;
+      case "polls":
+        return <NeighborhoodPolls />;
+      case "events":
+        return <EventPlanning />;
+      case "groups":
+        return <LocalGroups />;
       case "marketplace":
         return <Marketplace />;
       case "services":
@@ -81,7 +96,7 @@ const Index = () => {
         isBusiness={isBusiness}
         onToggleBusiness={handleToggleBusiness}
       />
-      
+
       <main className={`pt-4 ${currentPage === "messages" ? "" : "lg:ml-64"}`}>
         <div className={`${currentPage === "messages" ? "" : "container mx-auto px-4 pb-20 lg:pb-4"}`}>
           {renderPage()}

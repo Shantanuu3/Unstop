@@ -22,6 +22,16 @@ import {
   LogOut,
   Settings,
   MapPin,
+  Camera,
+  Video,
+  Vote,
+  Calendar,
+  Users,
+  TrendingUp,
+  Star,
+  Heart,
+  Globe,
+  Zap
 } from "lucide-react";
 
 interface NavigationProps {
@@ -36,9 +46,27 @@ export const Navigation = ({ currentPage, onPageChange, isBusiness, onToggleBusi
 
   const navigationItems = [
     { id: "feed", label: "Home", icon: Home },
+    { id: "stories", label: "Stories", icon: Camera, badge: 5 },
+    { id: "live", label: "Live", icon: Video, badge: 2 },
+    { id: "polls", label: "Polls", icon: Vote },
+    { id: "events", label: "Events", icon: Calendar },
+    { id: "groups", label: "Groups", icon: Users },
     { id: "marketplace", label: "Marketplace", icon: ShoppingBag },
     { id: "services", label: "Services", icon: Briefcase },
     { id: "messages", label: "Messages", icon: MessageCircle, badge: 3 },
+  ];
+
+  const socialFeatures = [
+    { id: "stories", label: "Stories", icon: Camera, description: "24-hour disappearing content" },
+    { id: "live", label: "Live Streaming", icon: Video, description: "Real-time neighborhood updates" },
+    { id: "polls", label: "Community Polls", icon: Vote, description: "Democratic decision-making" },
+    { id: "events", label: "Event Planning", icon: Calendar, description: "Full event management" },
+    { id: "groups", label: "Local Groups", icon: Users, description: "Interest-based communities" },
+  ];
+
+  const commerceFeatures = [
+    { id: "marketplace", label: "Marketplace", icon: ShoppingBag, description: "Buy and sell locally" },
+    { id: "services", label: "Services", icon: Briefcase, description: "Book local services" },
   ];
 
   return (
@@ -130,28 +158,98 @@ export const Navigation = ({ currentPage, onPageChange, isBusiness, onToggleBusi
       {/* Side Navigation (Desktop) */}
       <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 lg:pt-16">
         <div className="flex flex-col flex-grow bg-card border-r border-border overflow-y-auto">
-          <nav className="flex-1 px-4 py-6 space-y-2">
-            {navigationItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = currentPage === item.id;
-              
-              return (
-                <Button
-                  key={item.id}
-                  variant={isActive ? "default" : "ghost"}
-                  className="w-full justify-start relative"
-                  onClick={() => onPageChange(item.id)}
-                >
-                  <Icon className="mr-3 h-5 w-5" />
-                  {item.label}
-                  {item.badge && (
-                    <Badge className="ml-auto bg-destructive text-destructive-foreground">
-                      {item.badge}
-                    </Badge>
-                  )}
-                </Button>
-              );
-            })}
+          <nav className="flex-1 px-4 py-6 space-y-4">
+            {/* Social Features Section */}
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2 px-2 py-1">
+                <Globe className="w-4 h-4 text-muted-foreground" />
+                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                  Social Features
+                </span>
+              </div>
+              {socialFeatures.map((item) => {
+                const Icon = item.icon;
+                const isActive = currentPage === item.id;
+
+                return (
+                  <Button
+                    key={item.id}
+                    variant={isActive ? "default" : "ghost"}
+                    className="w-full justify-start relative h-auto py-2"
+                    onClick={() => onPageChange(item.id)}
+                  >
+                    <Icon className="mr-3 h-5 w-5" />
+                    <div className="flex flex-col items-start">
+                      <span className="text-sm">{item.label}</span>
+                      <span className="text-xs text-muted-foreground">{item.description}</span>
+                    </div>
+                    {item.badge && (
+                      <Badge className="ml-auto bg-destructive text-destructive-foreground">
+                        {item.badge}
+                      </Badge>
+                    )}
+                  </Button>
+                );
+              })}
+            </div>
+
+            {/* Commerce Features Section */}
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2 px-2 py-1">
+                <TrendingUp className="w-4 h-4 text-muted-foreground" />
+                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                  Commerce
+                </span>
+              </div>
+              {commerceFeatures.map((item) => {
+                const Icon = item.icon;
+                const isActive = currentPage === item.id;
+
+                return (
+                  <Button
+                    key={item.id}
+                    variant={isActive ? "default" : "ghost"}
+                    className="w-full justify-start relative h-auto py-2"
+                    onClick={() => onPageChange(item.id)}
+                  >
+                    <Icon className="mr-3 h-5 w-5" />
+                    <div className="flex flex-col items-start">
+                      <span className="text-sm">{item.label}</span>
+                      <span className="text-xs text-muted-foreground">{item.description}</span>
+                    </div>
+                    {item.badge && (
+                      <Badge className="ml-auto bg-destructive text-destructive-foreground">
+                        {item.badge}
+                      </Badge>
+                    )}
+                  </Button>
+                );
+              })}
+            </div>
+
+            {/* Communication Section */}
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2 px-2 py-1">
+                <Zap className="w-4 h-4 text-muted-foreground" />
+                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                  Communication
+                </span>
+              </div>
+              <Button
+                variant={currentPage === "messages" ? "default" : "ghost"}
+                className="w-full justify-start relative h-auto py-2"
+                onClick={() => onPageChange("messages")}
+              >
+                <MessageCircle className="mr-3 h-5 w-5" />
+                <div className="flex flex-col items-start">
+                  <span className="text-sm">Messages</span>
+                  <span className="text-xs text-muted-foreground">Direct communication</span>
+                </div>
+                <Badge className="ml-auto bg-destructive text-destructive-foreground">
+                  3
+                </Badge>
+              </Button>
+            </div>
           </nav>
         </div>
       </div>
@@ -159,18 +257,17 @@ export const Navigation = ({ currentPage, onPageChange, isBusiness, onToggleBusi
       {/* Bottom Navigation (Mobile) */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border z-50">
         <nav className="flex justify-around items-center h-16 px-4">
-          {navigationItems.map((item) => {
+          {navigationItems.slice(0, 5).map((item) => {
             const Icon = item.icon;
             const isActive = currentPage === item.id;
-            
+
             return (
               <Button
                 key={item.id}
                 variant="ghost"
                 size="sm"
-                className={`flex flex-col items-center space-y-1 relative ${
-                  isActive ? "text-primary" : "text-muted-foreground"
-                }`}
+                className={`flex flex-col items-center space-y-1 relative ${isActive ? "text-primary" : "text-muted-foreground"
+                  }`}
                 onClick={() => onPageChange(item.id)}
               >
                 <Icon className="w-5 h-5" />
