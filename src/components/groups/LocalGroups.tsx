@@ -9,27 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-    Users,
-    Plus,
-    Search,
-    MessageCircle,
-    Calendar,
-    MapPin,
-    Settings,
-    UserPlus,
-    UserMinus,
-    BookOpen,
-    Baby,
-    Running,
-    Camera,
-    Music,
-    Utensils,
-    Car,
-    Heart,
-    Globe,
-    Lock,
-} from "lucide-react";
+import { Users, Plus, Search, MessageCircle, Calendar, MapPin, Settings, UserPlus, UserMinus, BookOpen, Baby, FileWarning as Running, Camera, Music, Utensils, Car, Heart, Globe, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Group {
