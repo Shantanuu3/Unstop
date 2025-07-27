@@ -369,7 +369,7 @@ export const Stories = () => {
                                         <AvatarImage src={highlight.userAvatar} />
                                         <AvatarFallback>{highlight.userName[0]}</AvatarFallback>
                                     </Avatar>
-                                    <span className="text-sm font-medium">{story.userName}</span>
+                                    <span className="text-sm font-medium">{highlight.userName}</span>
                                 </div>
                                 <h4 className="font-semibold text-sm">{highlight.title}</h4>
                                 <p className="text-xs text-muted-foreground mt-1">
